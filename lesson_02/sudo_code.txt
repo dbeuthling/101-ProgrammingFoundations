@@ -1,0 +1,62 @@
+#a method that returns the sum of two integers
+
+---CASUAL---
+
+Given we have two integers.
+call the first integer 'first'
+call the second integer 'second'
+add 'first' and 'second'
+call the result 'result'
+print out 'result'
+
+---FORMAL---
+
+START
+
+#given a two integers
+
+SET integer 1 = x
+SET integer 2 = y
+SET result = x + y
+
+PRINT result
+____________________________________
+
+#a method that takes an array of strings, and returns a string
+#that is all those strings concatenated together
+
+---CASUAL---
+
+Given we have a array of strings
+start with an empty variable called 'sentence'
+iterate through each of the strings in the array
+add each string to the end of 'sentence'
+print out 'sentence'
+
+---FORMAL---
+
+START
+
+# Given an array of strings called 'words'
+
+SET iterator = 1
+SET sentence = new string of connected 'words'
+
+WHILE iterator < total number of words in 'words'
+  
+
+#a method that takes an array of integers, and returns a
+#new array with every other element
+Given we have and array of integers
+set a new empty array called 'every_other'
+iterate over the array of integers
+the first integer in the original array is in position 0, the second in 1, etc
+take the first integer in the original array and add it to the end of 'every_other'
+start a loop that adds 2 to the position
+take that integer and add it to 'every_other'
+stop when you reach the end of the original array
+
+
+------FORMAL------
+
+---one---

@@ -12,7 +12,10 @@ def prompt(message)
 end
 
 def valid_number?(num)
-  num.to_i() != 0
+#  (num).to_i.kind_of? Integer #|| (num).kind_of? Float
+#  /\d/.match(num) && /^\d*\.?\d*$/.match(num)
+  /[^0123456789.]/ === num && num == '' && num == '.' #&& num.count('.') <= 1
+#  num.to_i() != 0
 end
 
 def operation_to_message(op)
@@ -48,7 +51,7 @@ loop do # main loop
     prompt("What is the first number?")
     number1 = Kernel.gets().chomp()
 
-    break unless valid_number?(number1) == false
+    break unless valid_number?(number1) #== false
     prompt("That doesn't look like a valid number!")
   end
 
@@ -56,7 +59,7 @@ loop do # main loop
     prompt("What is the second number?")
     number2 = Kernel.gets().chomp()
 
-    break unless valid_number?(number2) == false
+    break unless valid_number?(number2) #== false
     prompt("That doesn't look like a valid number.")
   end
   operator_prompt = <<-message
@@ -81,13 +84,13 @@ loop do # main loop
 
   result = case operator
            when '1'
-             number1.to_i() + number2.to_i()
+             number1.to_f() + number2.to_f()
            when '2'
-             number1.to_i() - number2.to_i()
+             number1.to_f() - number2.to_f()
            when '3'
-             number1.to_i() * number2.to_i()
+             number1.to_f() * number2.to_f()
            when '4'
-             number1.to_i() / number2.to_f()
+             number1.to_f() / number2.to_f()
            end
 
   prompt("The result is #{result}.")

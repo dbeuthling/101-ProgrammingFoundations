@@ -9,7 +9,7 @@ require 'pry'
 require 'yaml'
 MESSAGES  = YAML.load_file('calc_messages.yml')
 #puts MESSAGES.inspect
-  
+
 
 def prompt(message)
   Kernel.puts("=> #{message}")
@@ -74,7 +74,7 @@ loop do # main loop
 #    4) divide
 # =>  message
   prompt(MESSAGES['operation'])
-  
+
   operator = ''
 
   loop do

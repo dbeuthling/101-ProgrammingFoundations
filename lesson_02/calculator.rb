@@ -67,7 +67,7 @@ loop do # main loop
     4) divide
   message
   prompt(operator_prompt)
-  
+
   operator = ''
 
   loop do

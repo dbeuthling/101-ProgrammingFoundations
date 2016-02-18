@@ -7,9 +7,8 @@
 # Kernel.puts(answer)
 require 'pry'
 require 'yaml'
-MESSAGES  = YAML.load_file('calc_messages.yml')
-#puts MESSAGES.inspect
-
+MESSAGES = YAML.load_file('calc_messages.yml')
+# puts MESSAGES.inspect
 
 def prompt(message)
   Kernel.puts("=> #{message}")

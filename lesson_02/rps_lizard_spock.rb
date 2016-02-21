@@ -31,7 +31,7 @@ def prompt(message)
   puts "=> #{message}"
 end
 
-choice = ''
+player_choice = ''
 computer_choice = ''
 player_score = 0
 computer_score = 0
@@ -39,19 +39,20 @@ computer_score = 0
 prompt("First to 5 wins is Champion of the World!")
 loop do
   loop do
-    prompt("Please choose one (enter the letters inside the parenthesis): (r)ock, (p)aper, (s)cissors, (l)izard, (sp)ock")
-    choice = gets.chomp.downcase
-    choice = expand_abbr(choice)
-    break if VALID_CHOICES.include?(choice)
-    prompt("Please pick a vaild choice. Check your spelling!")
+    prompt("Please choose one (enter the letters inside the parenthesis):")
+    prompt("(r)ock, (p)aper, (s)cissors, (l)izard, (sp)ock")
+    player_choice = gets.chomp.downcase
+    player_choice = expand_abbr(player_choice)
+    break if VALID_CHOICES.include?(player_choice)
+    prompt("Please pick a vaild player_choice. Check your spelling!")
   end
 
   computer_choice = VALID_CHOICES.sample
-  display_results(choice, computer_choice)
+  display_results(player_choice, computer_choice)
 
-  if win?(choice, computer_choice)
+  if win?(player_choice, computer_choice)
     player_score += 1
-  elsif win?(computer_choice, choice)
+  elsif win?(computer_choice, player_choice)
     computer_score += 1
   end
 

@@ -91,3 +91,34 @@ titalize("this is a test.")
 
 words = "this is another test"
 p words.split.map { |word| word.capitalize!}.join(" ")
+
+# Question 9
+munsters = {
+  "Herman" => { "age" => 32, "gender" => "male" },
+  "Lily" => { "age" => 30, "gender" => "female" },
+  "Grandpa" => { "age" => 402, "gender" => "male" },
+  "Eddie" => { "age" => 10, "gender" => "male" },
+  "Marilyn" => { "age" => 23, "gender" => "female"}
+}
+
+#munsters.each do |name, hash|
+#  if hash["age"].to_i.between?(0, 17)
+#    hash["age_group"] = "kid"
+#  elsif hash["age"].to_i.between?(18, 64)
+#    hash["age_group"] = "adult"
+#  else hash["age_group"] = "senior"
+#  end
+#end
+
+munsters.each do |name, hash|
+  case hash["age"].to_i
+  when (0...18)
+    hash["age_group"] = "kid"
+  when (18...65)
+    hash["age_group"] = "adult"
+  else
+    hash["age_group"] = "senior"
+  end
+end
+
+p munsters

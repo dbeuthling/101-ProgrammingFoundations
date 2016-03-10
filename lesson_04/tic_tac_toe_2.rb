@@ -69,26 +69,49 @@ end
 
 def square_at_risk?(line, brd, marker)
   if brd.values_at(*line).count(marker) == 2
-    brd.select { |k, v| line.include?(k) && v == INITIAL_MARKER }.keys.first
+    brd.find { |k, v| line.include?(k) && v == INITIAL_MARKER }.first
   else
     nil
   end
 end
 
+# def computer_places_piece!(brd)
+#   square = nil
+#   WINNING_LINES.each do |line|
+#     square = square_at_risk?(line, brd, COMPUTER_MARKER)
+#     break if square
+#   end
+
+#   if !square
+#     WINNING_LINES.each do |line|
+#       square = square_at_risk?(line, brd, PLAYER_MARKER)
+#       break if square
+#     end
+#   end
+# binding.pry
+#   if !square
+#     square = 5 if brd.values_at(5) == [INITIAL_MARKER]
+#   end
+
+#   if !square
+#     square = squares_empty?(brd).sample
+#   end
+
+#   brd[square] = COMPUTER_MARKER
+# end
+
+def offensive_or_defensive?(brd, marker)
+  WINNING_LINES.each do |line|
+    square = square_at_risk?(line, brd, marker)
+    return square if square
+  end
+end
+
 def computer_places_piece!(brd)
   square = nil
-  WINNING_LINES.each do |line|
-    square = square_at_risk?(line, brd, COMPUTER_MARKER)
-    break if square
-  end
-
-  if !square
-    WINNING_LINES.each do |line|
-      square = square_at_risk?(line, brd, PLAYER_MARKER)
-      break if square
-    end
-  end
-
+  square = offensive_or_defensive?(brd, COMPUTER_MARKER)
+  square = offensive_or_defensive?(brd, PLAYER_MARKER) unless square
+binding.pry
   if !square
     square = 5 if brd.values_at(5) == [INITIAL_MARKER]
   end

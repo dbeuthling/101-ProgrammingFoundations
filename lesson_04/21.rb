@@ -32,42 +32,18 @@ def dealer_cards(deck)
 	[rank[0] , rank[1]]
 end
 
-# def dealer_starting_hand(deck)
-# 	dealer_holding = dealer_cards(deck)
-# 	prompt("Dealer has: #{dealer_holding[0]} and a hidden card.")
-# 	find_value(dealer_holding)
-# end
-
-
-
-# def player_starting_hand(deck)
-# 	player_holding = cards
-# 	prompt("You have: #{player_holding[0]} and #{player_holding[1]}")
-# 	prompt("For a total of #{find_value(player_holding)}")
-# 	find_value(player_holding)
-# end
 
 def find_value(cards)
 	sum = 0
   cards.each do |value|
     if value == "Ace"
       sum += 11
-    elsif value.to_i == 0 # J, Q, K
+    elsif value.to_i == 0
       sum += 10
     else
       sum += value.to_i
     end
   end
-
- #  # correct for Aces
- #  cards.select { |value| value == "Ace" }.count.times do
- #    sum -= 10 if sum > 21
- #  end
-
- #  sum
-
-
-
 
 	# sum = 0
 	# cards.each do |card|
@@ -75,14 +51,7 @@ def find_value(cards)
 
    	cards.count("Ace").times do
     sum -= 10 if sum > 21
-  end
-
-# correct for Aces
-  # cards.select { |value| value == "Ace" }.count.times do
-  #   sum -= 10 if sum > 21
-  # end
-
-	
+  end	
 	sum
 end
 
@@ -105,6 +74,7 @@ prompt("For a total of #{find_value(player_hand)}")
 
 answer = nil
 loop do
+  loop do
 	break if busted?(find_value(player_hand))
   prompt("hit or stay?")
   answer = gets.chomp
@@ -119,9 +89,10 @@ loop do
 end
 
 if busted?(find_value(player_hand))
-prompt("busted")
+  prompt("You busted!")
+  break
 else
-  prompt("You chose to stay!")  # if player didn't bust, must have stayed to get here
+  prompt("You chose to stay!")
 end
 
 
@@ -141,21 +112,24 @@ prompt("Dealer has: #{dealer_hand[0]} and #{dealer_hand[1]}")
     prompt("You stayed with #{find_value(player_hand)}")
     if busted?(find_value(dealer_hand))
       prompt("Dealer busted, You win!")
+      break
     else
       prompt("Dealer stays with #{find_value(dealer_hand)}")
       if find_value(dealer_hand) > find_value(player_hand)
         prompt("Dealer wins!")
+        break
       elsif find_value(dealer_hand) == find_value(player_hand)
         prompt("Push")
+        break
       else
         prompt("You win!")
+        break
       end
     end
+  end
 
   prompt("Would you like to play again? (y or n)")
   again = gets.chomp
   break unless again.downcase.start_with?('y')
 end
-	
-
-  
+prompt("Thanks for playing!")  

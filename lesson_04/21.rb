@@ -1,13 +1,7 @@
 require 'pry'
 
-full_deck = [['H', '2'], ['H', '3'],['H', '4'], ['H', '5'], ['H', '6'], ['H', '7'], ['H', '8'], ['H', '9'], ['H', '10'], ['H', 'Jack'],['H', 'Queen'], ['H', 'King'], ['H', 'Ace']] +
-			[['S', '2'], ['S', '3'],['S', '4'], ['S', '5'], ['S', '6'], ['S', '7'], ['S', '8'], ['S', '9'], ['S', '10'], ['S', 'Jack'],['S', 'Queen'], ['S', 'King'], ['S', 'Ace']] +
-			[['C', '2'], ['C', '3'],['C', '4'], ['C', '5'], ['C', '6'], ['C', '7'], ['C', '8'], ['C', '9'], ['C', '10'], ['C', 'Jack'],['C', 'Queen'], ['C', 'King'], ['C', 'Ace']] +
-			[['D', '2'], ['D', '3'],['D', '4'], ['D', '5'], ['D', '6'], ['D', '7'], ['D', '8'], ['D', '9'], ['D', '10'], ['D', 'Jack'],['D', 'Queen'], ['D', 'King'], ['D', 'Ace']]
-
-# VALUES = {"Ace"=>11, "2"=>2, "3"=>3, "4"=>4, "5"=>5, "6"=>6, "7"=>7, "8"=>8, "9"=>9, "10"=>10, "Jack"=>10, "Queen"=>10, "King"=>10}
-
-deck = full_deck
+card_faces = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace']
+card_suits = ['H', 'S', 'C', 'D']
 
 def prompt(msg)
 	puts "=> #{msg}"
@@ -64,9 +58,10 @@ def busted?(hand)
 end
 
 loop do
+  deck = card_suits.product(card_faces)
 player_hand = players_cards(deck)
 dealer_hand = dealer_cards(deck)
-prompt("Dealer has: #{dealer_hand[0]} and a hidden card.")
+prompt("Dealer has a #{dealer_hand[0]} showing.")
 prompt("You have: #{player_hand[0]} and #{player_hand[1]}")
 prompt("For a total of #{find_value(player_hand)}")
 

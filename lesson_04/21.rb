@@ -10,8 +10,6 @@ def initialize_cards(suits, faces)
   faces.product(suits).shuffle
 end
 
-new_deck = initialize_cards(card_suits, card_faces)
-
 def players_cards(deck)
   deck.pop(2)
 end
@@ -46,8 +44,8 @@ def busted?(hand)
   hand > 21
 end
 
-loop do # start blackjack
-  deck = new_deck
+loop do # play again?
+  deck = initialize_cards(card_suits, card_faces)
   player_hand = players_cards(deck)
   dealer_hand = dealer_cards(deck)
   prompt("Dealer has a #{dealer_hand[0]} showing.")
@@ -55,21 +53,21 @@ loop do # start blackjack
   prompt("For a total of #{find_value(player_hand)}")
 
   hit_or_stay = nil
-    loop do # deal hands
-      loop do # player's turn
-        break if busted?(find_value(player_hand))
-        loop do
-          prompt("Do you (h)it or (s)tay?")
-          hit_or_stay = gets.chomp
-          break if ['h', 's'].include?(hit_or_stay)
-          prompt("You must enter an h or s!")
-        end
-        break if hit_or_stay.downcase.start_with?('s') || busted?(find_value(player_hand))
-        new_card = hit(deck)
-        player_hand << new_card
-        prompt("You drew a #{player_hand.last}")
-        prompt("You now have a total of #{find_value(player_hand)}")
+  loop do # game loop
+    loop do # player turns
+      break if busted?(find_value(player_hand))
+      loop do # hit or stay
+        prompt("Do you (h)it or (s)tay?")
+        hit_or_stay = gets.chomp
+        break if ['h', 's'].include?(hit_or_stay)
+        prompt("You must enter an h or s!")
       end
+      break if hit_or_stay.downcase.start_with?('s') || busted?(find_value(player_hand))
+      new_card = hit(deck)
+      player_hand << new_card
+      prompt("You drew a #{player_hand.last}")
+      prompt("You now have a total of #{find_value(player_hand)}")
+    end
 
     if busted?(find_value(player_hand))
       prompt("You busted!")
@@ -91,24 +89,21 @@ loop do # start blackjack
         break if find_value(dealer_hand) > 16 || busted?(find_value(dealer_hand))
       end
     end
-      prompt("You stayed with #{find_value(player_hand)}")
-      if busted?(find_value(dealer_hand))
-        prompt("Dealer busted, You win!")
-        break
+    prompt("You stayed with #{find_value(player_hand)}")
+    if busted?(find_value(dealer_hand))
+      prompt("Dealer busted, You win!")
+    else
+      prompt("Dealer stays with #{find_value(dealer_hand)}")
+      if find_value(dealer_hand) > find_value(player_hand)
+        prompt("Dealer wins!")
+      elsif find_value(dealer_hand) == find_value(player_hand)
+        prompt("Push")
       else
-        prompt("Dealer stays with #{find_value(dealer_hand)}")
-        if find_value(dealer_hand) > find_value(player_hand)
-          prompt("Dealer wins!")
-          break
-        elsif find_value(dealer_hand) == find_value(player_hand)
-          prompt("Push")
-          break
-        else
-          prompt("You win!")
-          break
-        end
+        prompt("You win!")
       end
     end
+    break
+  end
 
   prompt("Would you like to play again? (y or n)")
   again = gets.chomp

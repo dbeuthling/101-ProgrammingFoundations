@@ -1,6 +1,6 @@
-require 'rubocop'
-FACES = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace']
-VALUES = ['H', 'S', 'C', 'D']
+# require 'rubocop'
+FACES = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace'].freeze
+VALUES = ['H', 'S', 'C', 'D'].freeze
 
 def prompt(msg)
   puts "=> #{msg}"
@@ -71,7 +71,6 @@ def play_again?
   again.downcase.start_with?('y')
 end
 
-
 loop do
   prompt("Welcome to 21! Dealing cards...")
   deck = initialize_cards
@@ -103,8 +102,8 @@ loop do
     prompt("You chose to stay!")
   end
 
-prompt("--------Dealer's Turn--------")
-prompt("Dealer has: #{dealer_hand[1]} and #{dealer_hand[0]}")
+  prompt("--------Dealer's Turn--------")
+  prompt("Dealer has: #{dealer_hand[1]} and #{dealer_hand[0]}")
   loop do
     break if busted?(dealer_hand) || find_value(dealer_hand) > 16
     prompt("Dealer has #{find_value(dealer_hand)}")
@@ -113,11 +112,11 @@ prompt("Dealer has: #{dealer_hand[1]} and #{dealer_hand[0]}")
     prompt("Dealer drew a #{dealer_hand.last}")
   end
 
-    if busted?(dealer_hand)
-      prompt("Dealer has #{find_value(dealer_hand)}")
-      display_result(dealer_hand, player_hand)
-      play_again? ? next : break
-    end
+  if busted?(dealer_hand)
+    prompt("Dealer has #{find_value(dealer_hand)}")
+    display_result(dealer_hand, player_hand)
+    play_again? ? next : break
+  end
   prompt("You stayed with #{find_value(player_hand)}")
   prompt("Dealer stays with #{find_value(dealer_hand)}")
   display_result(dealer_hand, player_hand)

@@ -58,10 +58,8 @@ def display_result(dealer_hand, player_hand)
     prompt("Dealer busted, you win!")
   when :player
     prompt("You win!")
-    return "player"
   when :dealer
     prompt("Dealer wins!")
-    return "dealer"
   when :push
     prompt("Push!")
   end
@@ -78,11 +76,18 @@ def who_won(dealer_total, player_total)
   prompt("You stayed with #{player_total}") if player_total <= HIGH_HAND
 end
 
+
+def winner_scores_one(scores, winner)
+  scores[winner] += 1
+end
+
+scores = { "dealer" => 0, "player" => 0 }
+
 loop do
   prompt("Welcome to 21!")
   prompt("First to five victories wins the championship!")
-  player_wins = 0
-  dealer_wins = 0
+  # player_wins = 0
+  # dealer_wins = 0
   loop do
     loop do
       prompt("Dealing cards...")
@@ -111,7 +116,8 @@ loop do
       if busted?(player_hand)
         who_won(find_value(dealer_hand), find_value(player_hand))
         display_result(dealer_hand, player_hand)
-        dealer_wins += 1
+        # dealer_wins += 1
+        winner_scores_one(scores, "dealer")
         break
       else
         prompt("You chose to stay!")
@@ -135,18 +141,24 @@ loop do
         prompt("Dealer has #{dealer_total}")
         who_won(dealer_total, player_total)
         display_result(dealer_hand, player_hand)
-        player_wins += 1
+        # player_wins += 1
+        winner_scores_one(scores, "player")
         break
       end
       who_won(dealer_total, player_total)
-      result = display_result(dealer_hand, player_hand)
-      player_wins += 1 if result == "player"
-      dealer_wins += 1 if result == "dealer"
-      break if dealer_wins > 4 || player_wins > 4
-      prompt("Player has #{player_wins} wins and Dealer has #{dealer_wins} wins.")
+      display_result(dealer_hand, player_hand)
+      winner_of_the_hand = detect_result(dealer_hand, player_hand)
+      winner_scores_one(scores, "player") if winner_of_the_hand == :player
+      winner_scores_one(scores, "dealer") if winner_of_the_hand == :dealer
+      # player_wins += 1 if winner_of_the_hand == :player
+      # dealer_wins += 1 if winner_of_the_hand == :dealer
+      break if scores["dealer"] > 4 || scores["player"] > 4
+      prompt("Player has #{scores["player"]} wins and Dealer has #{scores["dealer"]} wins.")
+      # prompt("Player has #{player_wins} wins and Dealer has #{dealer_wins} wins.")
     end
-    prompt("Player has #{player_wins} wins and Dealer has #{dealer_wins} wins.")
-    break if dealer_wins > 4 || player_wins > 4
+    # prompt("Player has #{player_wins} wins and Dealer has #{dealer_wins} wins.")
+    prompt("Player has #{scores["player"]} wins and Dealer has #{scores["dealer"]} wins.")
+    break if scores["dealer"] > 4 || scores["player"] > 4
   end
   break unless play_again?
 end

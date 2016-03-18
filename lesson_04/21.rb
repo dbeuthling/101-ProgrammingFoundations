@@ -78,8 +78,6 @@ def who_won(dealer_total, player_total)
   prompt("You stayed with #{player_total}") if player_total <= HIGH_HAND
 end
 
-# player_wins = 0
-# dealer_wins = 0
 loop do
   prompt("Welcome to 21!")
   prompt("First to five victories wins the championship!")
@@ -122,7 +120,8 @@ loop do
       prompt("--------Dealer's Turn--------")
       prompt("Dealer has: #{dealer_hand[1]} and #{dealer_hand[0]}")
       loop do
-        break if busted?(dealer_hand) || find_value(dealer_hand) > HITS_BELOW
+        dealer_total = find_value(dealer_hand)
+        break if dealer_total > HITS_BELOW
         prompt("Dealer has #{find_value(dealer_hand)}")
         prompt("-------Dealer must hit-------")
         dealer_hand << deck.pop

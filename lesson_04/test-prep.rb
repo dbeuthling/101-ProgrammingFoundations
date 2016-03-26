@@ -123,27 +123,53 @@
 # p find_primes(3, 10)
 
 
-def fib?(num)
-  fib_array = [0, 1, 1, 2]
+# def fib?(num)
+#   fib_array = [0, 1, 1, 2]
+#   loop do
+#     last = fib_array.last
+#     last_index = fib_array.index(last)
+#     fib_array << (last + fib_array[last_index - 1])
+#     break if last > num
+#   end
+#   fib_array.include?(num)
+# end
+
+
+
+# def contain_fibs(array)
+#   new_arr = []
+#   array.each_index do |index|
+#     new_arr << array[index] if fib?(index)
+#   end
+#   new_arr
+# end
+
+# arr = [0, 1, 2, 4, 5, 9, 13, 22, 309875, 208745092843570982745028947509854273, 3, 235, 234, 45, 78, 3,42,3 ,234343324,23434,234,234234,294,342,34,5858528,53,85,3,853,8,3,853,8,53,85,3,853,5,3,85,385,3,85,38,53,85,3,85,3,85,385,38,3,8,3,85,3,8,53,85,38,53,85,3,853,8,5,3,85,38,53,85,3853853,85,3858,853,853]
+# p contain_fibs(arr)
+
+def reverse(arr)
+  rev = []
   loop do
-    last = fib_array.last
-    last_index = fib_array.index(last)
-    fib_array << (last + fib_array[last_index - 1])
-    break if last > num
+    rev << arr.pop
+    break if arr.empty?
   end
-  fib_array.include?(num)
+  rev
+end
+
+# reverse(["pickles", 4, 3, 2, 1])
+# reverse(['up', 'warming', 'is', 'world', 'this'])
+
+def palindrome?(word)
+  letters = word.chars
+  reversal = reverse(letters).join("")
+  if word.downcase == reversal.downcase
+     puts "Palindrome! - #{word} is the same as #{reversal}."
+  else
+     puts "Not a palindrome - #{word} is different from #{reversal}."
+   end
 end
 
 
-
-def contain_fibs(array)
-  new_arr = []
-  array.each_index do |index|
-    new_arr << array[index] if fib?(index)
-  end
-  new_arr
-end
-
-arr = [0, 1, 2, 4, 5, 9, 13, 22, 309875, 208745092843570982745028947509854273, 3, 235, 234, 45, 78, 3,42,3 ,234343324,23434,234,234234,294,342,34,5858528,53,85,3,853,8,3,853,8,53,85,3,853,5,3,85,385,3,85,38,53,85,3,85,3,85,385,38,3,8,3,85,3,8,53,85,38,53,85,3,853,8,5,3,85,38,53,85,3853853,85,3858,853,853]
-p contain_fibs(arr)
-
+palindrome?('hello')
+palindrome?('Kayak')
+palindrome?("GoHangASalamiImALasagnaHOg")
